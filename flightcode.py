@@ -8,7 +8,6 @@ import time as time_
  
 gps_set_success = False # boolean for the status of flightmode
 time_set = False # boolean for status of the OS time being set
- 
 initiated = False # boolean to prevent string being sent more than once
  
 # byte array for a UBX command to set flight mode
@@ -186,7 +185,7 @@ def read_gps(flightmode_status):
         westeast = data[6]
         altitude = int(float(data[7]))
        
-        callsign = "NORB_Test" 
+        callsign = "Project1" 
         time = data[2]
         
         if counter < 1 and time != 0: # if the second sentence has not been sent yet
@@ -202,7 +201,7 @@ def read_gps(flightmode_status):
         latitude = convert(lats, northsouth)
         longitude = convert(lngs, westeast)
         
-        string = str(callsign + ',' + time + ',' + str(counter) + ',' + str(latitude) + ',' + str(longitude) + ',' + str(flightmode_status) + ',' + satellites + str(initiated) + ',' + str(altitude)) # the data string
+        string = str(callsign + ',' + time + ',' + str(counter) + ',' + str(latitude) + ',' + str(longitude) + ',' + str(flightmode_status) + ',' + satellites + ',' + str(altitude)) # the data string
         csum = str(hex(crc16f(string))).upper()[2:] # running the CRC-CCITT checksum
         csum = csum.zfill(4) # creating the checksum data
         datastring = str("$$" + string + "*" + csum + "\n") # appending the datastring as per the UKHAS communication protocol
