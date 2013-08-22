@@ -210,7 +210,7 @@ def read_gps(flightmode_status):
         print "now sending the following:", datastring
         send(datastring) # send the datastring to the send function to send to the NTX2
         
-        if altitude >= 30000 and initiated == False:
+        if altitude >= 25000 and initiated == False:
             os.system("sudo nohup /home/pi/LEDs.sh") # trigger LEDs bash to trigger LEDs Python script
             send("Placed, in space...") # send string between telemetry.
             initiated == True
