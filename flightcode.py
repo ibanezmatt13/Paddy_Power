@@ -113,7 +113,7 @@ def read_gps():
             longitude = convert(lngs, westeast)
 
     # the data fields below can be sent when no lock from GPS
-    callsign = "NORB_Test"
+    callsign = "Wonderworks-PP"
         
     if altitude >= 29800: # if altitude is more than 29800
         trigger = True
