@@ -1,10 +1,10 @@
-Brew
+# This script flashes output 2 LED's
+from time import sleep
+import piface.pfio as pfio
+pfio.init() # Initialise PiFace #Comment out if used as nested PiFace Script
 
-Please change this so that it contains the code you developed for the LEDS which we know works.
-
-Then just recompile:
-    
-    sudo chmod 755 leds.py
-
-Thanks
-Matt
+while(True): # Variable to ensure the script runs indefinatly
+  pfio.digital_write (2,1) # LED On
+  sleep (0.5) # Wait Time
+  pfio.digital_write (2,0) # LED off
+  sleep (0.5) # Wait time
