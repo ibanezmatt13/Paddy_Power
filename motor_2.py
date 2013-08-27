@@ -3,8 +3,11 @@ import piface.pfio as pfio # Import PiFace
 from time import sleep
 pfio.init() # initialise PiFace # Comment out if using as nested script
 
-for x in range (0, 5): # loop x number of times
- pfio.digital_write (0,1) # motor out
- print "button pressed - motor out"
- sleep (1) # hold time
- pfio.digital_write (0,0) # release button
+x = 0
+
+while x <= 5:
+    pfio.digital_write (0,1) # motor out
+    print "button pressed - motor out"
+    sleep (1) # hold time
+    pfio.digital_write (0,0) # release button
+    x += 1 # increment counter each iteration
