@@ -119,7 +119,7 @@ def read_gps():
             time = data[2]
             time = float(time) # ensuring that python knows time is a float
             
-            if time_set = False:
+            if time_set == False:
                 set_time(time)
             
             string = "%06i" % time # creating a string out of time (this format ensures 0 is included at start if any)
