@@ -1,3 +1,5 @@
+#usr/bin/python
+
 # This script takes pictures and stamps them with the date
 import os
 from time import sleep
