@@ -1,4 +1,4 @@
-# This scrip runs the motor out and then back in again by closing relay output 0
+# This script runs the motor out and then back in again by closing relay output 0
 import piface.pfio as pfio # Import PiFace
 from time import sleep
 pfio.init() # initialise PiFace # Comment out if using as nested script
