@@ -118,6 +118,10 @@ def read_gps():
             altitude = int(float(data[7]))
             time = data[2]
             time = float(time) # ensuring that python knows time is a float
+            
+            if time_set = False:
+                set_time(time)
+            
             string = "%06i" % time # creating a string out of time (this format ensures 0 is included at start if any)
             hours = string[0:2]
             minutes = string[2:4]
