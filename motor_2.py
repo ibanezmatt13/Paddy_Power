@@ -8,6 +8,6 @@ x = 0
 while x <= 5:
     pfio.digital_write (0,1) # motor out
     print "button pressed - motor out"
-    sleep (1) # hold time
+    time.sleep(1) # hold time
     pfio.digital_write (0,0) # release button
     x += 1 # increment counter each iteration
