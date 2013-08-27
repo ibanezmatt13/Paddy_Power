@@ -5,7 +5,8 @@ import serial
 import crcmod
 import time
 import time as time_
- 
+
+time_set = False
 trigger = False # boolen to trigger event at 30km
 
 # byte array for a UBX command to set flight mode
@@ -46,6 +47,19 @@ def sendUBX(MSG, length):
 crc16f = crcmod.predefined.mkCrcFun('crc-ccitt-false') # function for CRC-CCITT checksum
 disable_sentences()
 counter = 0 # this counter will increment as our sentence_id
+
+# function to set the OS time to GPS time
+def set_time(time):
+   
+    data = list(time) # split the time into individual characters
+    
+    # construct the hours and minutes variables
+    hours = time[0] + time[1] 
+    minutes = time[2] + time[3]
+    
+    parsed_datetime = hours + minutes # finalise the time to be set
+    os.system('sudo date --set ' + str(parsed_datetime)) # set the OS time
+    time_set = True # show that time is now set
  
 # function to send both telemetry and packets
 def send(data):
@@ -103,8 +117,11 @@ def read_gps():
             westeast = data[6]
             altitude = int(float(data[7]))
             time = data[2]
-            time = float(time) # ensuring that python knows time is a float
+
+            if time_set == False:
+                set_time(time)
             
+            time = float(time) # ensuring that python knows time is a float
             string = "%06i" % time # creating a string out of time (this format ensures 0 is included at start if any)
             hours = string[0:2]
             minutes = string[2:4]
