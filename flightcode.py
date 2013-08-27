@@ -133,7 +133,7 @@ def read_gps():
     # the data fields below can be sent when no lock from GPS
     callsign = "Wonderworks-PP"
         
-    if altitude >= 29800: # if altitude is more than 29800
+    if altitude >= 100: # if altitude is more than 29800
         trigger = True
         os.system('sudo nohup /home/pi/leds.sh &') # command to trigger LED script
         os.system('sudo nohup /home/pi/motor_2.sh &') # command to trigger motor script
