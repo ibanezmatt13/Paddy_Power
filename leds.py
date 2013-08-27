@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 # This script flashes output 2 LED's
 from time import sleep
 import piface.pfio as pfio
