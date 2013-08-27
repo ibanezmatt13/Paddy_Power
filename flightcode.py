@@ -7,6 +7,7 @@ import time
 import time as time_
  
 trigger = False # boolen to trigger event at 30km
+time_set = False # boolean to prevent setting OS time more than once
 
 # byte array for a UBX command to set flight mode
 setNav = bytearray.fromhex("B5 62 06 24 24 00 FF FF 06 03 00 00 00 00 10 27 00 00 05 00 FA 00 FA 00 64 00 2C 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 16 DC")
@@ -53,6 +54,19 @@ def send(data):
     NTX2.write(data) # write final datastring to the serial port
     print data
     NTX2.close()
+    
+# function to set the OS time to GPS time
+def set_time(time):
+   
+    data = list(time) # split the time into individual characters
+    
+    # construct the hours and minutes variables
+    hours = time[0] + time[1] 
+    minutes = time[2] + time[3]
+    
+    parsed_datetime = hours + minutes # finalise the time to be set
+    os.system('sudo date --set ' + str(parsed_datetime)) # set the OS time
+    time_set = True # show that time is now set
     
 # function to read the gps and process the data it returns for transmission
 def read_gps():
