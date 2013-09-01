@@ -8,6 +8,7 @@ import time as time_
 
 time_set = False
 trigger = False # boolen to trigger event at 30km
+scripts_triggered = False
 
 # byte array for a UBX command to set flight mode
 setNav = bytearray.fromhex("B5 62 06 24 24 00 FF FF 06 03 00 00 00 00 10 27 00 00 05 00 FA 00 FA 00 64 00 2C 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 16 DC")
@@ -135,7 +136,9 @@ def read_gps():
         
     if altitude >= 29500: # if altitude is more than 29800
         trigger = True
-        os.system('sudo nohup /home/pi/leds.sh &') # command to trigger LED script
+        if scripts_triggered == False:
+            os.system('sudo nohup /home/pi/leds.sh &') # command to trigger LED script
+            scripts_triggered = True
     else:
         trigger = False
         
