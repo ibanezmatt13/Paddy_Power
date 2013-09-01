@@ -84,6 +84,7 @@ def read_gps():
     longitude = 0
     
     global counter
+    global trigger
     gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) # open serial for GPS
     gps.write("$PUBX,00*33\n") # reuest a PUBX sentence
     NMEA_sentence = gps.readline() # read GPS
