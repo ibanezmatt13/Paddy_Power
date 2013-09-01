@@ -137,7 +137,7 @@ def read_gps():
         
     if altitude >= 50 and trigger == False: # if altitude is more than 29800
         trigger = True
-        os.system('sudo nohup /home/pi/leds.sh &') # command to trigger LED script
+        os.system('sudo nohup /home/pi/leds.py &') # command to trigger LED script
             
     else:
         trigger = False
