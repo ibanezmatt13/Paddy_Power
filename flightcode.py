@@ -70,7 +70,7 @@ def send(data):
     NTX2.close()
     
 # function to read the gps and process the data it returns for transmission
-def read_gps(trigger):
+def read_gps():
 
     # set some fields to zero for transmitting without lock
     satellites = 0
@@ -134,9 +134,9 @@ def read_gps(trigger):
     # the data fields below can be sent when no lock from GPS
     callsign = "Wonderworks-PP"
         
-    if altitude >= 50 and trigger == False: # if altitude is more than 29800
+    if altitude >= 50 and self.trigger == False: # if altitude is more than 29800
         os.system('sudo python leds.py') # command to trigger LED script
-        trigger = True
+        self.trigger = True
         
     string = str(callsign + ',' + str(time) + ',' + str(counter) + ',' + str(latitude) + ',' + str(longitude) + ',' + str(satellites) + ',' + str(trigger) + ',' + str(altitude)) # the data string
     csum = str(hex(crc16f(string))).upper()[2:] # running the CRC-CCITT checksum
@@ -172,4 +172,4 @@ while True:
     GPS.flush()
     GPS.close() # close the serial
     print "serial port closed"
-    read_gps(trigger) # run the read_gps function to get the data and parse it with status of flightmode
+    read_gps() # run the read_gps function to get the data and parse it with status of flightmode
