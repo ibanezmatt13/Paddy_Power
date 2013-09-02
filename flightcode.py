@@ -84,6 +84,7 @@ def read_gps():
     longitude = 0
     
     global counter
+    global trigger
     gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) # open serial for GPS
     gps.write("$PUBX,00*33\n") # reuest a PUBX sentence
     NMEA_sentence = gps.readline() # read GPS
@@ -134,11 +135,9 @@ def read_gps():
     # the data fields below can be sent when no lock from GPS
     callsign = "Wonderworks-PP"
         
-    if altitude >= 50: # if altitude is more than 29800
+    if altitude >= 50 and trigger == False: # if altitude is more than 29800
         os.system('sudo /home/pi/leds.py &') # command to trigger LED script
         trigger = True
-    else:
-        trigger = False
         
     string = str(callsign + ',' + str(time) + ',' + str(counter) + ',' + str(latitude) + ',' + str(longitude) + ',' + str(satellites) + ',' + str(trigger) + ',' + str(altitude)) # the data string
     csum = str(hex(crc16f(string))).upper()[2:] # running the CRC-CCITT checksum
