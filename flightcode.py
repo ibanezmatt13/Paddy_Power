@@ -131,7 +131,6 @@ def read_gps():
             hours = hours + 1
             minutes = string[2:4]
             seconds = string[4:6]
-            hours = hours + 1
             time = str(str(hours) + ':' + str(minutes) + ':' + str(seconds)) # the final time string in form 'hh:mm:ss'
             latitude = convert(lats, northsouth)
             longitude = convert(lngs, westeast)
