@@ -61,6 +61,18 @@ def set_time(time):
     parsed_datetime = hours + minutes # finalise the time to be set
     os.system('sudo date --set ' + str(parsed_datetime)) # set the OS time
     time_set = True # show that time is now set
+    
+def GMT_to_BST(time):
+   
+    data = list(time) # split the time into individual characters
+    
+    # construct the hours and minutes variables
+    hours = time[0] + time[1] 
+    minutes = time[2] + time[3]
+    BST_hours = float(hours) + 1
+    
+    parsed_time = BST_hours + minutes # finalise the time to be set
+    return parsed_time
  
 # function to send both telemetry and packets
 def send(data):
@@ -118,12 +130,12 @@ def read_gps():
             lngs = data[5]
             westeast = data[6]
             altitude = int(float(data[7]))
-            time = data[2]
+            raw_time = data[2]
 
             if time_set == False:
-                set_time(time)
+                set_time(raw_time)
             
-            time = float(time) # ensuring that python knows time is a float
+            time = GMT_to_BST(raw_time)
             string = "%06i" % time # creating a string out of time (this format ensures 0 is included at start if any)
             hours = string[0:2]
             minutes = string[2:4]
