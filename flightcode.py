@@ -70,7 +70,7 @@ def send(data):
     NTX2.close()
     
 # function to read the gps and process the data it returns for transmission
-def read_gps():
+def read_gps(trigger):
 
     # set some fields to zero for transmitting without lock
     satellites = 0
@@ -172,4 +172,4 @@ while True:
     GPS.flush()
     GPS.close() # close the serial
     print "serial port closed"
-    read_gps() # run the read_gps function to get the data and parse it with status of flightmode
+    read_gps(trigger) # run the read_gps function to get the data and parse it with status of flightmode
