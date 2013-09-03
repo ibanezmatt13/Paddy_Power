@@ -127,7 +127,6 @@ def read_gps():
             time = float(raw_time)
             string = "%06i" % time # creating a string out of time (this format ensures 0 is included at start if any)
             hours = string[0:2]
-            hours = int(hours)
             #hours = hours + 1
             minutes = string[2:4]
             seconds = string[4:6]
