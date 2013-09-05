@@ -127,7 +127,6 @@ def read_gps():
             time = float(raw_time)
             string = "%06i" % time # creating a string out of time (this format ensures 0 is included at start if any)
             hours = string[0:2]
-            #hours = hours + 1
             minutes = string[2:4]
             seconds = string[4:6]
             time = str(str(hours) + ':' + str(minutes) + ':' + str(seconds)) # the final time string in form 'hh:mm:ss'
@@ -137,7 +136,7 @@ def read_gps():
     # the data fields below can be sent when no lock from GPS
     callsign = "Wonderworks-PP"
         
-    if altitude >= 50 and trigger == False: # if altitude is more than 29800
+    if altitude >= 29500 and trigger == False: # if altitude is more than 29800
         os.system('sudo /home/pi/leds.py &') # command to trigger LED script
         os.system('sudo /home/pi/motor.py &') # command to trigger LED script
         trigger = True
