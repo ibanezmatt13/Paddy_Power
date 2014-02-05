@@ -36,14 +36,12 @@ def millis():
      
 # fucntion to send commands to the GPS 
 def sendUBX(MSG, length):
-    print "Sending UBX Command: "
     ubxcmds = ""
     for i in range(0, length):
         GPS.write(chr(MSG[i])) #write each byte of ubx cmd to serial port
         ubxcmds = ubxcmds + str(MSG[i]) + " " # build up sent message debug output string
     GPS.write("\r\n") #send newline to ublox
-    print ubxcmds #print debug message
-    print "UBX Command Sent..."
+
  
 crc16f = crcmod.predefined.mkCrcFun('crc-ccitt-false') # function for CRC-CCITT checksum
 disable_sentences()
@@ -67,7 +65,6 @@ def set_time(time):
 def send(data):
     NTX2 = serial.Serial('/dev/ttyAMA0', 300, serial.EIGHTBITS, serial.PARITY_NONE, serial.STOPBITS_TWO) # opening serial at 300 baud for radio transmission with 8 character bits, no parity and two stop bits
     NTX2.write(data) # write final datastring to the serial port
-    print data
     NTX2.close()
     
 # function to read the gps and process the data it returns for transmission
@@ -89,8 +86,8 @@ def read_gps():
     gps = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) # open serial for GPS
     gps.write("$PUBX,00*33\n") # reuest a PUBX sentence
     NMEA_sentence = gps.readline() # read GPS
+    print NMEA_sentence
     
-    print "GPS sentence has been read"
     end_time = millis() + 5000 # create an end time for while loop timeout
     while not NMEA_sentence.startswith("$PUBX") and millis() < end_time: # while not got good sentence and not timed out
         gps.write("$PUBX,00*33\n") # request a PUBX sentence
@@ -167,12 +164,9 @@ def convert(position_data, orientation):
 while True:
     
     GPS = serial.Serial('/dev/ttyAMA0', 9600, timeout=1) # open serial
-    print "serial opened"
     GPS.flush() # wait for bytes to be physically read from the GPS
     sendUBX(setNav, len(setNav)) # send command to enable flightmode
-    print "sendUBX_ACK function complete"
     sendUBX(setNMEA_off, len(setNMEA_off)) # turn NMEA sentences off
     GPS.flush()
     GPS.close() # close the serial
-    print "serial port closed"
     read_gps() # run the read_gps function to get the data and parse it with status of flightmode
