@@ -137,8 +137,8 @@ def read_gps():
     callsign = "Wonderworks-PP"
         
     if altitude >= 29500 and trigger == False: # if altitude is more than 29800
-        os.system('sudo /home/pi/leds.py &') # command to trigger LED script
-        os.system('sudo /home/pi/motor.py &') # command to trigger LED script
+        #os.system('sudo /home/pi/leds.py &') # command to trigger LED script
+        #os.system('sudo /home/pi/motor.py &') # command to trigger LED script
         trigger = True
         
     string = str(callsign + ',' + str(time) + ',' + str(counter) + ',' + str(latitude) + ',' + str(longitude) + ',' + str(satellites) + ',' + str(trigger) + ',' + str(altitude)) # the data string
