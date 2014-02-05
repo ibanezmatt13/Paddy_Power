@@ -93,6 +93,7 @@ def read_gps():
         gps.write("$PUBX,00*33\n") # request a PUBX sentence
         NMEA_sentence = gps.readline() # re-read ready for re-looping
         print "Still Bad Sentence"
+        delay(1)
 
     if NMEA_sentence.startswith("$PUBX"): # if we got a PUBX sentence
      
